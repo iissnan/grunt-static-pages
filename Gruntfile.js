@@ -12,7 +12,10 @@ module.exports = function (grunt) {
                 base: '.',
 
                 // 设定服务器端口监听的地址，默认是*。例如： 0.0.0.0
-                host: '*'
+                host: '*',
+
+                // 设定是否自动调用浏览器，打开服务器指定的地址。默认是 true，可选值： true | false
+                open: true
             },
 
             watch: {
@@ -38,7 +41,9 @@ module.exports = function (grunt) {
             options: {
                 port: '<%= settings.server.port %>',
                 base: '<%= settings.server.base %>',
-                hostname: '<%= settings.server.host %>'
+                hostname: '<%= settings.server.host %>',
+                open: grunt.config.get('settings.server.open') &&
+                    {target: 'http://localhost:' + '<%= settings.server.port%>'}
             }
         }
     });

@@ -1,10 +1,14 @@
 module.exports = {
+
+    // 设定需要监视的文件目录，默认是与Gruntfile.js同级的目录
+    basePath: './example',
+
     server: {
         // 设定服务器端口号，例如： 9000
         port: 9000,
 
-        // 设定需要监视的文件目录，默认是与Gruntfile.js同级的目录
-        base: '.',
+        // 服务器根目录
+        base: this.basePath,
 
         // 设定服务器端口监听的地址，默认是*。例如： 0.0.0.0
         host: '*',
@@ -32,8 +36,8 @@ module.exports = {
     less: {
         // 设定LESS文件组，形式：{ CSS文件的路径/名字:  LESS文件的路径/名字 }，例如：
         files: {
-            // "example/css/main.css": "example/less/main.less",
-            // "example/css/extra.css": "example/less/extra.less"
+            "css/main.css": "less/main.less",
+            "css/extra.css": "less/extra.less"
         }
     }
 };

@@ -2,8 +2,12 @@ module.exports = function (grunt) {
     require('load-grunt-tasks')(grunt);
     require('./grunt/lib/helpers')(grunt);
 
+    var settings = require('./grunt/settings');
+
+    grunt.file.setBase(settings.basePath);
+
     grunt.config.init({
-        settings: require('./grunt/settings')
+        settings: settings
     });
 
     var tasks = ['connect', 'watch'];
@@ -40,7 +44,7 @@ module.exports = function (grunt) {
         if ( !grunt.helpers.isEmpty(lessFiles) ) {
             grunt.config.set('less', {
                 development: {
-                    files: lessSettings
+                    files: lessFiles
                 }
             });
 

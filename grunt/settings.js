@@ -1,7 +1,7 @@
 module.exports = {
 
     // 设定需要监视的文件目录，默认是与Gruntfile.js同级的目录
-    basePath: './example',
+    basePath: './',
 
     server: {
         // 设定服务器端口号，例如： 9000

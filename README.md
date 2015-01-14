@@ -38,8 +38,8 @@
 
 5. 设定静态项目的路径地址
 
-    在`settings.js`将`basePath`的值更改成项目所在的路径。工具将会监视这个目录底下的文件，
-    同时服务器也会以这个目录作为根目录。假设工具放置在`d:/work/example`目录下，则将`basePath`设定为：
+    在`grunt/settings.js`将`basePath`的值更改成项目所在的路径。工具将会监视这个目录底下的文件，
+    同时服务器也会以这个目录作为根目录。假设项目放置在`d:/work/example`目录下，则将`basePath`设定为：
 
     ```
     basePath: 'd:/work/example'

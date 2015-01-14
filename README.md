@@ -36,9 +36,16 @@
     npm install
     ```
 
-5. 放置静态项目文件
+5. 设定静态项目的路径地址
 
-    将静态项目的文件放置在工具目录下，例如，项目`example`。
+    在`settings.js`将`basePath`的值更改成项目所在的路径。工具将会监视这个目录底下的文件，
+    同时服务器也会以这个目录作为根目录。假设工具放置在`d:/work/example`目录下，则将`basePath`设定为：
+
+    ```
+    basePath: 'd:/work/example'
+    ```
+
+    以下作为例子将`example`项目放置在工具目录下（不推荐）。目录结构如下：
 
     ```
     .
@@ -49,22 +56,33 @@
     `-- README.md
     ```
 
+    在这个例子中，`grunt/settings`中`basePath`的设置如下：
+
+    ```
+    basePath: './example'
+    ```
+
 
 5. 启动服务器
 
     在工具目录下执行`grunt`来启动服务器。
 
     * 服务器默认端口是 `9000`。
-    * 默认的监视路径是工具目录
-    * 默认监视的文件类型有： `**/*.html`, `**/*.css`, `**/*.js`
+    * 默认会自动调用系统默认浏览器，并打开`http://localhost:9000`。 需要关闭此功能，将`grunt/settings.js`中的`server`下的`open`改为`false`即可。
+    * 默认监视的文件类型有：
 
-   以上选项均可在`Gruntfile.js`中进行修改。
+        ```
+        .html, .css, .js, .png, .jpg, .gif,
+        .woff, .ttf, .eot, .svg
+        ```
 
-6. 编辑项目目录下的`HTML`， `CSS`或者`JavaScript`文件，服务器会自动重载。
+   以上选项均可在`grunt/settings.js`中进行修改。
+
+6. 编辑项目目录下的`HTML`， `CSS`或者`JavaScript`文件，服务器会自动加载改动的文件，并刷新浏览器。
 
 ## LESS支持
 
-在`Gruntfile.js`中，修改`settings`下的`less`即可开启LESS支持。当开启了`less`支持后，工具将会自动监视`less`文件的改动。
+在`grunt/settings.js`中，修改`less`的`files`即可开启LESS支持。当开启了`less`支持后，工具将会自动监视`less`文件的改动。
 `less`文件发生改动的时候，将自动编译成对应的`css`。
 
 设定的格式如下：
@@ -78,7 +96,9 @@
 
 ```
 less: {
-  "example/css/main.css": "example/less/main.less",
-  "example/css/extra.css": "example/less/extra.less"
+  "css/main.css": "less/main.less",
+  "css/extra.css": "less/extra.less"
 }
 ```
+
+需要注意的是，以上文件的路径是相对于`basePath`的。

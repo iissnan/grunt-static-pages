@@ -1,6 +1,6 @@
 {
   "name": "grunt-static-pages",
-  "version": "0.0.3",
+  "version": "0.0.6",
   "description": "A boilerplate for developing static pages with Live Reload.",
   "main": "index.js",
   "scripts": {

@@ -36,8 +36,8 @@ module.exports = {
     less: {
         // 设定LESS文件组，形式：{ CSS文件的路径/名字:  LESS文件的路径/名字 }，例如：
         files: {
-            "css/main.css": "less/main.less",
-            "css/extra.css": "less/extra.less"
+            //"css/main.css": "less/main.less",
+            //"css/extra.css": "less/extra.less"
         }
     }
 };

@@ -2,7 +2,16 @@ module.exports = function (grunt) {
     require('load-grunt-tasks')(grunt);
     require('./grunt/lib/helpers')(grunt);
 
-    var settings = require('./grunt/settings');
+    var _ = require('lodash');
+    var settings = {};
+    var defaults = require('./grunt/settings');
+    var settingsPath = grunt.option('settings') || './settings.json';
+
+    try {
+        settings = grunt.file.read(settingsPath);
+    } catch(e) {}
+
+    _.assign(settings, defaults);
 
     !grunt.file.exists(settings.basePath) && function fatal() {
         grunt.log.writeln('\n指定路径不存在!');
@@ -12,9 +21,7 @@ module.exports = function (grunt) {
 
     grunt.file.setBase(settings.basePath);
 
-    grunt.config.init({
-        settings: settings
-    });
+    grunt.config.init({settings: settings});
 
     var tasks = ['connect', 'watch'];
 

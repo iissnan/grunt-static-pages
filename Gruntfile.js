@@ -2,33 +2,41 @@ module.exports = function (grunt) {
     require('load-grunt-tasks')(grunt);
     require('./grunt/lib/helpers')(grunt);
 
-    var settings = require('./grunt/settings');
+    var _ = require('lodash');
+    var util = require('util');
+    var defaults = require('./grunt/settings');
+    var settingsPath = './grunt-sm.json';
+    var settings = {};
 
-    !grunt.file.exists(settings.basePath) && function fatal() {
-        grunt.log.writeln('\n指定路径不存在!');
-        grunt.log.writeln('路径: ' + settings.basePath + '\n');
-        grunt.fail.fatal('请检查项目路径是否正确!\n');
-    }();
+    if (grunt.file.exists(settingsPath)) {
+        try {
+            settings = grunt.file.readJSON(settingsPath);
+        } catch (e) {}
+    }
 
+    _.defaults(settings, defaults);
+
+    grunt.helpers.checkPath(
+        settings.basePath,
+        util.format('\n指定路径不存在! 路径: %s \n请检查项目路径是否正确!\n', settings.basePath),
+        true
+    );
     grunt.file.setBase(settings.basePath);
-
-    grunt.config.init({
-        settings: settings
-    });
+    grunt.config.init({settings: defaults});
 
     var tasks = ['connect', 'watch'];
 
     grunt.config.set('connect', {
         options: {
-            livereload: '<%= settings.server.LRPort %>'
+            livereload: '<%= settings.LRPort %>'
         },
         server: {
             options: {
-                port: '<%= settings.server.port %>',
-                base: '<%= settings.server.base %>',
-                hostname: '<%= settings.server.host %>',
-                open: grunt.config.get('settings.server.open') &&
-                    {target: 'http://localhost:' + '<%= settings.server.port%>'}
+                port: '<%= settings.port %>',
+                base: '<%= settings.base %>',
+                hostname: '<%= settings.host %>',
+                open: grunt.config.get('settings.autoOpen') &&
+                    {target: 'http://localhost:' + '<%= settings.port%>'}
             }
         }
     });
@@ -38,19 +46,18 @@ module.exports = function (grunt) {
             options: {
                 livereload: '<%= connect.options.livereload %>'
             },
-            files: '<%= settings.watch.static %>'
+            files: '<%= settings.watch %>'
         }
     });
 
     // LESS support
     (function () {
         var lessSettings = grunt.config.get('settings.less');
-        var lessFiles = lessSettings && lessSettings.files;
 
-        if ( !grunt.helpers.isEmpty(lessFiles) ) {
+        if ( !grunt.helpers.isEmpty(lessSettings) ) {
             grunt.config.set('less', {
                 development: {
-                    files: lessFiles
+                    files: lessSettings
                 }
             });
 

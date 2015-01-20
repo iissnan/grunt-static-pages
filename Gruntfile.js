@@ -1,10 +1,10 @@
 module.exports = function (grunt) {
     require('load-grunt-tasks')(grunt);
-    require('./grunt/lib/helpers')(grunt);
+    require('./tasks/lib/helpers')(grunt);
 
     var _ = require('lodash');
     var util = require('util');
-    var defaults = require('./grunt/settings');
+    var defaults = require('./tasks/settings');
     var settingsPath = './grunt-sm.json';
     var settings = {};
     var tasks = ['connect', 'watch'];

@@ -3,39 +3,39 @@ module.exports = function (grunt) {
     require('./grunt/lib/helpers')(grunt);
 
     var _ = require('lodash');
-    var settings = {};
+    var util = require('util');
     var defaults = require('./grunt/settings');
-    var settingsPath = grunt.option('settings') || './settings.json';
-
-    try {
-        settings = grunt.file.read(settingsPath);
-    } catch(e) {}
-
-    _.assign(settings, defaults);
-
-    !grunt.file.exists(settings.basePath) && function fatal() {
-        grunt.log.writeln('\n指定路径不存在!');
-        grunt.log.writeln('路径: ' + settings.basePath + '\n');
-        grunt.fail.fatal('请检查项目路径是否正确!\n');
-    }();
-
-    grunt.file.setBase(settings.basePath);
-
-    grunt.config.init({settings: settings});
-
+    var settingsPath = './grunt-sm.json';
+    var settings = {};
     var tasks = ['connect', 'watch'];
+
+    if (grunt.file.exists(settingsPath)) {
+        try {
+            settings = grunt.file.readJSON(settingsPath);
+        } catch (e) {}
+    }
+
+    _.defaults(settings, defaults);
+
+    grunt.helpers.checkPath(
+        settings.basePath,
+        util.format('\n指定路径不存在! 路径: %s \n请检查项目路径是否正确!\n', settings.basePath),
+        true
+    );
+    grunt.file.setBase(settings.basePath);
+    grunt.config.init({settings: defaults});
 
     grunt.config.set('connect', {
         options: {
-            livereload: '<%= settings.server.LRPort %>'
+            livereload: '<%= settings.LRPort %>'
         },
         server: {
             options: {
-                port: '<%= settings.server.port %>',
-                base: '<%= settings.server.base %>',
-                hostname: '<%= settings.server.host %>',
-                open: grunt.config.get('settings.server.open') &&
-                    {target: 'http://localhost:' + '<%= settings.server.port%>'}
+                port: '<%= settings.port %>',
+                base: '<%= settings.base %>',
+                hostname: '<%= settings.host %>',
+                open: grunt.config.get('settings.autoOpen') &&
+                    {target: 'http://localhost:' + '<%= settings.port%>'}
             }
         }
     });
@@ -45,30 +45,27 @@ module.exports = function (grunt) {
             options: {
                 livereload: '<%= connect.options.livereload %>'
             },
-            files: '<%= settings.watch.static %>'
+            files: '<%= settings.watch %>'
         }
     });
 
     // LESS support
-    (function () {
-        var lessSettings = grunt.config.get('settings.less');
-        var lessFiles = lessSettings && lessSettings.files;
+    var lessSettings = grunt.config.get('settings.less');
 
-        if ( !grunt.helpers.isEmpty(lessFiles) ) {
-            grunt.config.set('less', {
-                development: {
-                    files: lessFiles
-                }
-            });
+    if ( !grunt.helpers.isEmpty(lessSettings) ) {
+        grunt.config.set('less', {
+            development: {
+                files: lessSettings
+            }
+        });
 
-            grunt.config.set('watch.less', {
-                files: ['**/*.less'],
-                tasks: ['less']
-            });
+        grunt.config.set('watch.less', {
+            files: ['**/*.less'],
+            tasks: ['less']
+        });
 
-            tasks.unshift('less');
-        }
-    }());
+        tasks.unshift('less');
+    }
 
     grunt.task.registerTask('default', tasks);
 };

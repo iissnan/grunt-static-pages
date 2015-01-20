@@ -1,6 +1,6 @@
 {
   "name": "grunt-static-pages",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "A script for developing static pages with Live Reload. Save F5 and life.",
   "main": "Gruntfile.js",
   "scripts": {

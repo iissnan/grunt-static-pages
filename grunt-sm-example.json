@@ -1,0 +1,10 @@
+{
+  "basePath": "",
+  "port": 8000,
+  "autoOpen": true,
+  "host": "*",
+  "LRPort": 35729,
+  "less": {
+    "assets/css/main.css": "assets/less/main.less"
+  }
+}

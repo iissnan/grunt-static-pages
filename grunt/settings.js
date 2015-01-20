@@ -1,7 +1,7 @@
 module.exports = {
 
     // 设定需要监视的文件目录
-    basePath: './',
+    basePath: '',
 
     // 设定服务器端口号，例如： 9000
     port: 9000,

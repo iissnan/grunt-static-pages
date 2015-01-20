@@ -51,24 +51,22 @@ module.exports = function (grunt) {
     });
 
     // LESS support
-    (function () {
-        var lessSettings = grunt.config.get('settings.less');
+    var lessSettings = grunt.config.get('settings.less');
 
-        if ( !grunt.helpers.isEmpty(lessSettings) ) {
-            grunt.config.set('less', {
-                development: {
-                    files: lessSettings
-                }
-            });
+    if ( !grunt.helpers.isEmpty(lessSettings) ) {
+        grunt.config.set('less', {
+            development: {
+                files: lessSettings
+            }
+        });
 
-            grunt.config.set('watch.less', {
-                files: ['**/*.less'],
-                tasks: ['less']
-            });
+        grunt.config.set('watch.less', {
+            files: ['**/*.less'],
+            tasks: ['less']
+        });
 
-            tasks.unshift('less');
-        }
-    }());
+        tasks.unshift('less');
+    }
 
     grunt.task.registerTask('default', tasks);
 };

@@ -1,1 +1,6 @@
-{}
+{
+  "basePath": "./example",
+  "less": {
+    "assets/css/main.css": "assets/less/main.less"
+  }
+}

@@ -40,7 +40,7 @@
 
     在工具目录下新建`grunt-sm.json`文件，这是一个标准的[JSON](http://zh.wikipedia.org/wiki/JSON)文件。可选的设定如下：
 
-    - `basePath(string)`: 项目所在的路径，**必选**。
+    - `basePath(string)`: 项目所在的路径，绝对路径或者相对于工具目录的相对路径，**必选**。
 
         工具将会监视这个目录底下的文件，同时服务器也会以这个目录作为根目录。
         假设项目放置在`d:/work/example`目录下，则将`basePath`设定为：

@@ -40,7 +40,7 @@
 
     在工具目录下新建`grunt-sm.json`文件，这是一个标准的[JSON](http://zh.wikipedia.org/wiki/JSON)文件。可选的设定如下：
 
-    - `basePath`: 项目所在的路径，必选。
+    - `basePath(string)`: 项目所在的路径，**必选**。
 
         工具将会监视这个目录底下的文件，同时服务器也会以这个目录作为根目录。
         假设项目放置在`d:/work/example`目录下，则将`basePath`设定为：
@@ -51,15 +51,15 @@
             }
             ```
 
-     - `port`(number): 服务器的端口，默认是`9000`。
+    - `port(number)`: 服务器的端口，可选，默认是`9000`。
 
-     - `autoOpen`(boolean): 是否自动调用默认浏览器打开服务器，默认为`true`。可选值： `true | false`
+    - `autoOpen`(boolean): 是否自动调用默认浏览器打开服务器，默认为`true`。可选值： `true | false`
 
-     - `less`(object): less设定。详见底下 LESS支持
+    - `less`(object): less设定。详见底下 LESS支持。
 
-     - `LRPort`(number): Live reload使用的端口，默认`35729`。
+    - `LRPort`(number): Live reload使用的端口，可选，默认`35729`。
 
-     - `watch`(array): 默认监视的静态文件。
+    - `watch`(array): 默认监视的静态文件，可选。
 
 
 5. 启动服务器

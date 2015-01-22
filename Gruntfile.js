@@ -4,26 +4,32 @@ module.exports = function (grunt) {
 
     var _ = require('lodash');
     var util = require('util');
+    var path = require('path');
     var defaults = require('./tasks/settings');
-    var settingsPath = './grunt-sm.json';
+    var settingsPath = grunt.option('grunt-sm') || './grunt-sm.json';
     var settings = {};
     var tasks = ['connect', 'watch'];
 
-    if (grunt.file.exists(settingsPath)) {
-        try {
-            settings = grunt.file.readJSON(settingsPath);
-        } catch (e) {}
+    try {
+        settings = grunt.file.readJSON(settingsPath);
+        grunt.log.writeln('Loaded the configuration file.');
+    } catch (e) {
+        grunt.fail.fatal(
+            'Parse "grunt-sm.json" failed. Please check: \n' +
+            '  1) grunt-sm.json exists.\n' +
+            '  2) grunt-sm.json is a valid json file.\n'
+        );
     }
 
     _.defaults(settings, defaults);
 
     grunt.helpers.checkPath(
-        settings.basePath,
+        path.resolve(settings.basePath),
         util.format('\n指定路径不存在! 路径: %s \n请检查项目路径是否正确!\n', settings.basePath),
         true
     );
     grunt.file.setBase(settings.basePath);
-    grunt.config.init({settings: defaults});
+    grunt.config.init({settings: settings});
 
     grunt.config.set('connect', {
         options: {
@@ -52,7 +58,7 @@ module.exports = function (grunt) {
     // LESS support
     var lessSettings = grunt.config.get('settings.less');
 
-    if ( !grunt.helpers.isEmpty(lessSettings) ) {
+    if (!grunt.helpers.isEmpty(lessSettings) ) {
         grunt.config.set('less', {
             development: {
                 files: lessSettings

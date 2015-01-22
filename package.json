@@ -15,6 +15,7 @@
     "grunt-contrib-less": "^1.0.0",
     "grunt-contrib-watch": "^0.6.1",
     "load-grunt-tasks": "^2.0.0",
-    "lodash": "^2.4.1"
+    "lodash": "^2.4.1",
+    "swig": "^1.4.2"
   }
 }

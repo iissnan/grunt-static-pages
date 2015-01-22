@@ -53,13 +53,13 @@
 
     - `port(number)`: 服务器的端口，可选，默认是`9000`。
 
-    - `autoOpen`(boolean): 是否自动调用默认浏览器打开服务器，默认为`true`。可选值： `true | false`
+    - `autoOpen(boolean)`: 是否自动调用默认浏览器打开服务器，默认为`true`。可选值： `true | false`
 
-    - `less`(object): less设定。详见底下 LESS支持。
+    - `less(object)`: less设定。详见底下 LESS支持。
 
-    - `LRPort`(number): Live reload使用的端口，可选，默认`35729`。
+    - `LRPort(number)`: Live reload使用的端口，可选，默认`35729`。
 
-    - `watch`(array): 默认监视的静态文件，可选。
+    - `watch(array)`: 默认监视的静态文件，可选。
 
 
 5. 启动服务器
@@ -101,3 +101,11 @@ less: {
 ```
 
 需要注意的是，以上文件的路径是相对于`basePath`的。
+
+
+## TODO
+
+- [x] [LESS](http://lesscss.org/) Support
+- [ ] [Swig](http://paularmstrong.github.io/swig/) Support
+- [ ] [uglify](https://github.com/gruntjs/grunt-contrib-uglify) Support
+- [ ] Make distribute package Support

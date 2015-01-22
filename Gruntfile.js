@@ -6,14 +6,17 @@ module.exports = function (grunt) {
     var util = require('util');
     var path = require('path');
     var defaults = require('./tasks/settings');
-    var settingsPath = grunt.option('grunt-sm') || './grunt-sm.json';
+    var settingsPath = grunt.option('sm') || './grunt-sm.json';
     var settings = {};
     var tasks = ['connect', 'watch'];
+    var gruntFilePath = process.cwd();
 
     try {
+        grunt.log.writeln(util.format('Loading %s ...', settingsPath));
         settings = grunt.file.readJSON(settingsPath);
         grunt.log.writeln('Loaded the configuration file.');
     } catch (e) {
+        grunt.log.writeln('');
         grunt.fail.fatal(
             'Parse "grunt-sm.json" failed. Please check: \n' +
             '  1) grunt-sm.json exists.\n' +
@@ -47,6 +50,12 @@ module.exports = function (grunt) {
     });
 
     grunt.config.set('watch', {
+        options: {
+            cliArgs: [
+                '--gruntfile', path.join(gruntFilePath, 'Gruntfile.js'),
+                '--sm', settingsPath
+            ]
+        },
         livereload: {
             options: {
                 livereload: '<%= connect.options.livereload %>'
